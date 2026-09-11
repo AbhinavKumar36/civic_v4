@@ -1,0 +1,17 @@
+{
+  "name": "civic-pulse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Civic Pulse - People's Priorities: AI for Constituency Development Planning",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "typecheck": "npm run typecheck --workspaces"
+  }
+}
