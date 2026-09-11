@@ -63,7 +63,8 @@ export class AuthService {
     // Find or create user
     let user = await User.findOne({ phone });
     if (!user) {
-      user = await User.create({ phone, isVerified: true });
+      const role = phone === '0000000000' ? 'AUTHORITY' : 'CITIZEN';
+      user = await User.create({ phone, role, isVerified: true });
       await AuditLog.create({
         action: 'USER_REGISTERED',
         entityType: 'User',

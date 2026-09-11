@@ -67,3 +67,5 @@ export class GeminiProvider implements AIProvider {
     }
   }
 }
+
+export const geminiProvider = new GeminiProvider();

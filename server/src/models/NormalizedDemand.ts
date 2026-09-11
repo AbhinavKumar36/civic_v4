@@ -22,6 +22,12 @@ export interface INormalizedDemand extends Document {
   aiProvider: string;
   aiModel: string;
   processingStatus: 'COMPLETED' | 'FAILED';
+  embedding?: {
+    model: string;
+    version: string;
+    vector: number[];
+  };
+  themeId?: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -48,6 +54,12 @@ const normalizedDemandSchema = new Schema<INormalizedDemand>({
   aiProvider: { type: String, required: true },
   aiModel: { type: String, required: true },
   processingStatus: { type: String, enum: ['COMPLETED', 'FAILED'], default: 'COMPLETED' },
+  embedding: {
+    model: String,
+    version: String,
+    vector: [Number]
+  },
+  themeId: { type: Schema.Types.ObjectId, ref: 'Theme' }
 }, { timestamps: true });
 
 normalizedDemandSchema.index({ location: '2dsphere' });
