@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '../../components/ui/Card';
-import { MapContainer, TileLayer, Circle, Popup, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Circle, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 export const HotspotsView: React.FC = () => {

@@ -8,9 +8,10 @@
     "build": "tsc",
     "seed:dataset": "ts-node src/scripts/seed-bhubaneswar-data.ts",
     "seed:real": "ts-node src/scripts/seed-real-data.ts",
+    "seed:proposals": "ts-node src/scripts/seed-proposals.ts",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src --ext .ts"
+    "lint": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",

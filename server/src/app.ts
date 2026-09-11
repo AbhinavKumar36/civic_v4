@@ -9,6 +9,8 @@ import civicInputsRoutes from './routes/civic-inputs.routes';
 import intelligenceRoutes from './routes/intelligence.routes';
 import datasetRoutes from './routes/dataset.routes';
 import evidenceRoutes from './routes/evidence.routes';
+import proposalRoutes from './routes/proposal.routes';
+import priorityRoutes from './routes/priority.routes';
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.use('/api/v1/civic-inputs', civicInputsRoutes);
 app.use('/api/v1/intelligence', intelligenceRoutes);
 app.use('/api/v1/datasets', datasetRoutes);
 app.use('/api/v1/evidence', evidenceRoutes);
+app.use('/api/v1/proposals', proposalRoutes);
+app.use('/api/v1/priorities', priorityRoutes);
 
 app.get('/api/v1/health', (req, res) => {
   res.status(200).json({ success: true, data: { status: 'OK', timestamp: new Date() } });
