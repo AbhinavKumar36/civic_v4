@@ -40,6 +40,16 @@ npm run dev
 - Frontend will be available at `http://localhost:5173`
 - Backend API will be available at `http://localhost:4000`
 
+> **Note on Authentication (Demo Bypass):**
+> For demonstration and local development purposes, entering `123456` as the OTP will bypass the TextBee validation entirely and grant access.
+
+### Starting Backend Separately
+If you only want to start the backend independently, navigate to the `server/` directory and run:
+```bash
+cd server
+npm run dev
+```
+
 ### Testing & Linting
 ```bash
 npm run test

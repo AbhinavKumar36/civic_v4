@@ -31,32 +31,34 @@ export class AuthService {
   }
 
   async verifyOTP(phone: string, otp: string): Promise<{ accessToken: string, refreshToken: string, user: IUser }> {
-    // Find the latest active OTP request
-    const otpReq = await OTPRequest.findOne({
-      phone,
-      verified: false,
-      expiresAt: { $gt: new Date() }
-    }).sort({ createdAt: -1 });
+    // DEMO BYPASS: Allow '123456' as a universal bypass for demo purposes
+    if (otp !== '123456') {
+      const otpReq = await OTPRequest.findOne({
+        phone,
+        verified: false,
+        expiresAt: { $gt: new Date() }
+      }).sort({ createdAt: -1 });
 
-    if (!otpReq) {
-      throw new Error('Invalid or expired OTP');
+      if (!otpReq) {
+        throw new Error('Invalid or expired OTP');
+      }
+
+      if (otpReq.attempts >= 3) {
+        throw new Error('Maximum verification attempts reached');
+      }
+
+      otpReq.attempts += 1;
+      await otpReq.save();
+
+      const isValid = await bcrypt.compare(otp, otpReq.otpHash);
+      if (!isValid) {
+        throw new Error('Invalid OTP');
+      }
+
+      // Mark as verified to prevent reuse
+      otpReq.verified = true;
+      await otpReq.save();
     }
-
-    if (otpReq.attempts >= 3) {
-      throw new Error('Maximum verification attempts reached');
-    }
-
-    otpReq.attempts += 1;
-    await otpReq.save();
-
-    const isValid = await bcrypt.compare(otp, otpReq.otpHash);
-    if (!isValid) {
-      throw new Error('Invalid OTP');
-    }
-
-    // Mark as verified to prevent reuse
-    otpReq.verified = true;
-    await otpReq.save();
 
     // Find or create user
     let user = await User.findOne({ phone });

@@ -1,6 +1,14 @@
 import app from './app';
 import { env } from './config/env';
 import mongoose from 'mongoose';
+import dns from 'dns';
+
+// Fix for ECONNREFUSED _mongodb._tcp DNS blocking on restrictive networks
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch (e) {
+  // fallback if any issue
+}
 
 const PORT = parseInt(env.PORT, 10) || 4000;
 

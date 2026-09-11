@@ -12,7 +12,7 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string().min(1, "JWT_REFRESH_SECRET is required"),
   TEXTBEE_API_KEY: z.string().min(1, "TEXTBEE_API_KEY is required"),
   TEXTBEE_DEVICE_ID: z.string().min(1, "TEXTBEE_DEVICE_ID is required"),
-  GEMINI_API_KEY: z.string().optional(),
+  GEMINI_API_KEY: z.string().min(1, "GEMINI_API_KEY is required"),
   OPENWEATHER_API_KEY: z.string().optional()
 });
 

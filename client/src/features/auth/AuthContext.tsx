@@ -28,12 +28,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = (token: string, user: User) => {
+    localStorage.setItem('token', token);
     setAccessToken(token);
     setUser(user);
-    // Real implementation would persist access token or fetch me on refresh
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setAccessToken(null);
     setUser(null);
   };

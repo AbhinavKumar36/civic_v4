@@ -11,15 +11,27 @@ export class TextBeeProvider {
 
   async sendSMS(to: string, message: string): Promise<boolean> {
     try {
-      // In development or if mocking is needed, just log securely
-      if (env.NODE_ENV === 'development') {
-        console.log(`[TextBee Mock] Would send to ${to}. Message length: ${message.length}`);
-        return true; // Mock success
+      // Use the actual TextBee API to send the SMS
+      const response = await fetch('https://api.textbee.dev/api/v1/gateway/devices/' + this.deviceId + '/sendSMS', {
+        method: 'POST',
+        headers: {
+          'x-api-key': this.apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          deviceId: this.deviceId,
+          recipients: [to],
+          message: message
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`[TextBeeProvider] API Error: ${response.status} - ${errorText}`);
+        return false;
       }
 
-      // Actual implementation would make an HTTP request to TextBee
-      // const response = await fetch('https://api.textbee.net/api/v1/gateway/devices/...', { ... })
-      
+      console.log(`[TextBeeProvider] Successfully sent SMS to ${to}`);
       return true;
     } catch (error) {
       console.error('[TextBeeProvider] Failed to send SMS:', error);
