@@ -13,8 +13,14 @@ This repository is structured as a monorepo containing:
 - **Server**: Node.js, Express, TypeScript, MongoDB (Mongoose), JWT Auth.
 
 ## Phase 0 Foundation
-Currently, this project implements **Phase 0**. 
-Phase 0 establishes a robust, secure foundation including authentication (OTP & JWT), RBAC (Citizen vs Authority), and shell applications. 
+Currently, this project implements:
+- Phase 0 — COMPLETE
+- Phase 1 — COMPLETE
+- Phase 2 — COMPLETE
+- Phase 3 — COMPLETE
+- Phase 4 — NEXT
+
+foundation including authentication (OTP & JWT), RBAC (Citizen vs Authority), and shell applications. 
 *Note: AI classification, demand clustering, proposals, and hotspot features belong to Phase 1+ and are deliberately excluded in Phase 0.*
 
 ## Setup & Running

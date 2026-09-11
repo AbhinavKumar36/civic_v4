@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { ArrowLeft } from 'lucide-react';
+import { EvidenceContextView } from './EvidenceContextView';
 
-export const DemandDetail: React.FC<{ demandId: string; onBack: () => void }> = ({ demandId, onBack }) => {
+interface DemandDetailProps {
+  demandId: string;
+  onBack: () => void;
+}
+
+export const DemandDetail: React.FC<DemandDetailProps> = ({ demandId, onBack }) => {
   const [demand, setDemand] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [showEvidence, setShowEvidence] = useState(false);
 
   useEffect(() => {
     const fetchDemand = async () => {
@@ -27,16 +34,26 @@ export const DemandDetail: React.FC<{ demandId: string; onBack: () => void }> = 
     fetchDemand();
   }, [demandId]);
 
-  if (loading) return <div>Loading details...</div>;
+  if (loading) return <div>Loading demand details...</div>;
   if (!demand) return <div>Demand not found</div>;
+
+  if (showEvidence) {
+    return <EvidenceContextView demandId={demand._id} onBack={() => setShowEvidence(false)} />;
+  }
 
   const civicInput = demand.civicInputId;
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
-      <Button variant="ghost" onClick={onBack} className="mb-4">
-        <ArrowLeft size={16} className="mr-2" /> Back to Intelligence
-      </Button>
+    <div className="space-y-6 max-w-4xl">
+      <div className="flex justify-between items-center">
+        <Button variant="outline" onClick={onBack}>
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to List
+        </Button>
+        <Button onClick={() => setShowEvidence(true)} className="bg-green-600 hover:bg-green-700">
+          Analyze Contextual Evidence
+        </Button>
+      </div>
 
       <div className="flex justify-between items-center">
         <div>

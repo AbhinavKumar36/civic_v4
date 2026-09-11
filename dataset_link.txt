@@ -1,0 +1,10 @@
+https://bhubaneswarone.in/arcgis/rest/services/BhubaneswarOne/AdministrativeBoundary/MapServer/4?utm_source=chatgpt.com
+https://data.opencity.in/dataset/bhubaneswar-administrative-boundaries?utm_source=chatgpt.com
+https://data.opencity.in/dataset/86e62c35-239d-49ee-af39-a8f7bbcc72e1/resource/b59db5ae-c8bb-4b0f-876f-77aa76d91520/download/bda_boundary.geojson
+https://data.opencity.in/dataset/86e62c35-239d-49ee-af39-a8f7bbcc72e1/resource/7e5ff1e2-e6aa-41b9-ba27-519f6b8a48e6/download/police_jurisdiction.geojson
+https://data.opencity.in/dataset/86e62c35-239d-49ee-af39-a8f7bbcc72e1/resource/57dd4fb2-b5a2-4451-89db-c85d5131e6bf/download/bmc-boundary.geojson
+https://data.opencity.in/dataset/86e62c35-239d-49ee-af39-a8f7bbcc72e1/resource/67f56ccc-521b-4781-b6ad-672bc7284f67/download/wards.geojson
+https://www.openstreetmap.org/?utm_source=chatgpt.com
+https://www.data.gov.in/catalog/schools-availability-infrastructure-and-facilities-school-management-and-school-category?utm_source=chatgpt.com
+https://www.bmc.gov.in/bmc/profile?utm_source=chatgpt.com
+https://odisha.data.gov.in/catalog/primary-census-abstract-odisha?utm_source=chatgpt.com
