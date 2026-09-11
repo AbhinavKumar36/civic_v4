@@ -9,14 +9,17 @@ import { DemandList } from './DemandList';
 import { DemandDetail } from './DemandDetail';
 import { ThemesView } from './ThemesView';
 import { HotspotsView } from './HotspotsView';
+import { PortfolioPlanningView } from './PortfolioPlanningView';
+import { DecisionWorkspaceView } from './DecisionWorkspaceView';
 
 export const AuthorityShell: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeView, setActiveView] = useState<'proposals' | 'themes' | 'hotspots' | 'demands'>('proposals');
+  const [activeView, setActiveView] = useState<'proposals' | 'themes' | 'hotspots' | 'demands' | 'portfolio'>('proposals');
   const [selectedDemandId, setSelectedDemandId] = useState<string | null>(null);
   const [selectedProposalId, setSelectedProposalId] = useState<string | null>(null);
   const [comparisonProposals, setComparisonProposals] = useState<any[] | null>(null);
+  const [currentPortfolioId, setCurrentPortfolioId] = useState<string | null>(null);
 
   const handleLogout = () => {
     logout();
@@ -27,6 +30,7 @@ export const AuthorityShell: React.FC = () => {
     setSelectedDemandId(null);
     setSelectedProposalId(null);
     setComparisonProposals(null);
+    setCurrentPortfolioId(null);
   };
 
   const renderContent = () => {
@@ -35,6 +39,19 @@ export const AuthorityShell: React.FC = () => {
         <ProposalDetailAnalysisView 
           proposalId={selectedProposalId} 
           onBack={() => setSelectedProposalId(null)} 
+        />
+      );
+    }
+
+    if (currentPortfolioId) {
+      return (
+        <DecisionWorkspaceView
+          portfolioId={currentPortfolioId}
+          onDecisionComplete={() => {
+            alert('Portfolio Approved and Decision Record Created Successfully!');
+            setCurrentPortfolioId(null);
+            setActiveView('proposals');
+          }}
         />
       );
     }
@@ -73,6 +90,8 @@ export const AuthorityShell: React.FC = () => {
         return <ThemesView />;
       case 'hotspots':
         return <HotspotsView />;
+      case 'portfolio':
+        return <PortfolioPlanningView onPortfolioOptimized={(p) => setCurrentPortfolioId(p._id)} />;
       case 'demands':
       default:
         return <DemandList onSelect={setSelectedDemandId} />;
@@ -90,6 +109,13 @@ export const AuthorityShell: React.FC = () => {
             onClick={() => { setActiveView('proposals'); clearSelection(); }}
           >
             🏛️ Development Proposals
+          </Button>
+          <Button 
+            variant={activeView === 'portfolio' && !currentPortfolioId ? 'default' : 'ghost'} 
+            className="w-full justify-start font-semibold" 
+            onClick={() => { setActiveView('portfolio'); clearSelection(); }}
+          >
+            📊 Portfolio Planning
           </Button>
           <Button 
             variant={activeView === 'themes' && !selectedDemandId && !selectedProposalId ? 'default' : 'ghost'} 
