@@ -8,7 +8,7 @@ export const Footer = () => {
           
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(24,182,106,0.3)] bg-white/5">
-              <img src="/logo-pulse.png" alt="Civic Pulse Logo" className="w-full h-full object-contain p-1" />
+              <img src="/logo.png" alt="Civic Pulse Logo" className="w-full h-full object-contain p-1" />
             </div>
             <div>
               <div className="font-bold text-foreground text-lg tracking-tight">CIVIC PULSE</div>

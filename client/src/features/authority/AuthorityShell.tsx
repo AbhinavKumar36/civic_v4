@@ -99,10 +99,10 @@ export const AuthorityShell: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <aside className="w-64 bg-white border-r p-4 flex flex-col">
-        <h2 className="text-xl font-bold text-indigo-700 mb-8">Civic Pulse Authority</h2>
-        <nav className="flex-1 space-y-2">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden">
+      <aside className="w-64 bg-surface border-r border-border p-4 flex flex-col flex-shrink-0">
+        <h2 className="text-xl font-bold text-primary mb-6">Civic Pulse Authority</h2>
+        <nav className="flex-1 space-y-2 overflow-y-auto pr-2">
           <Button 
             variant={activeView === 'proposals' && !selectedProposalId && !comparisonProposals ? 'default' : 'ghost'} 
             className="w-full justify-start font-semibold" 
@@ -139,9 +139,9 @@ export const AuthorityShell: React.FC = () => {
             📋 Raw Demands
           </Button>
         </nav>
-        <div className="pt-4 border-t">
-          <p className="text-xs font-semibold uppercase text-gray-400 mb-1">Authenticated As</p>
-          <p className="text-sm font-bold text-gray-700 mb-3">{user?.phone} ({user?.role})</p>
+        <div className="pt-4 border-t border-border">
+          <p className="text-xs font-semibold uppercase text-muted mb-1">Authenticated As</p>
+          <p className="text-sm font-bold text-foreground mb-3">{user?.phone || user?.email} ({user?.role})</p>
           <Button variant="destructive" size="sm" className="w-full" onClick={handleLogout}>Logout</Button>
         </div>
       </aside>

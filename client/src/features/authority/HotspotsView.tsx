@@ -65,10 +65,10 @@ export const HotspotsView: React.FC = () => {
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold">Demand Hotspots & Contextual Data</h2>
-      <p className="text-gray-600">Geographic concentration of recurring civic themes with supporting public data.</p>
+      <p className="text-muted">Geographic concentration of recurring civic themes with supporting public data.</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 bg-white p-2 rounded-lg shadow h-[600px] z-0 relative">
+        <div className="lg:col-span-3 bg-surface border-border p-2 rounded-lg shadow h-[600px] z-0 relative">
           <DashboardMap 
             hotspots={hotspots.map(h => ({
               cluster_id: h._id,
@@ -85,7 +85,7 @@ export const HotspotsView: React.FC = () => {
           <Card className="p-4">
             <h3 className="font-semibold text-lg border-b pb-2 mb-3">Contextual Layers</h3>
             {datasets.length === 0 ? (
-              <p className="text-xs text-gray-500">No contextual datasets available. Run seed script.</p>
+              <p className="text-xs text-muted">No contextual datasets available. Run seed script.</p>
             ) : (
               <div className="space-y-2">
                 {datasets.map(ds => (
@@ -98,7 +98,7 @@ export const HotspotsView: React.FC = () => {
                     />
                     <div>
                       <span className="font-semibold block">{ds.name}</span>
-                      <span className="text-xs text-gray-500">{ds.recordCount} records</span>
+                      <span className="text-xs text-muted">{ds.recordCount} records</span>
                     </div>
                   </label>
                 ))}
@@ -110,7 +110,7 @@ export const HotspotsView: React.FC = () => {
           {hotspots.map(h => (
             <Card key={h._id} className="p-4 border-l-4 border-red-500">
               <h4 className="font-bold mb-1">{h.themeId?.name || 'Unknown Theme'}</h4>
-              <div className="text-sm text-gray-600 space-y-1">
+              <div className="text-sm text-muted space-y-1">
                 <p><strong>Demands:</strong> {h.demandCount}</p>
                 <p><strong>Intensity:</strong> {h.intensity.toFixed(2)}</p>
               </div>

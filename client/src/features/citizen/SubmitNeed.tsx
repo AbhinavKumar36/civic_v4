@@ -34,7 +34,7 @@ export const SubmitNeed: React.FC = () => {
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
         <h2 className="text-2xl font-bold">Submit a Community Need</h2>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">
+        <p className="text-muted dark:text-gray-400 mt-2">
           Your submission will be converted into a structured civic demand using AI. Future analysis will combine citizen demand with public evidence before development priorities are determined. AI is NOT deciding government action.
         </p>
       </div>

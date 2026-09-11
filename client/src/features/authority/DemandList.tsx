@@ -34,7 +34,7 @@ export const DemandList: React.FC<{ onSelect: (id: string) => void }> = ({ onSel
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center bg-white p-4 rounded border shadow-sm">
+      <div className="flex justify-between items-center bg-surface border-border p-4 rounded border shadow-sm">
         <h2 className="text-xl font-bold">Demand Intelligence</h2>
         <select 
           className="border rounded p-2" 
@@ -62,16 +62,16 @@ export const DemandList: React.FC<{ onSelect: (id: string) => void }> = ({ onSel
                 </span>
               </div>
               <h3 className="font-semibold text-lg line-clamp-1">{demand.title}</h3>
-              <p className="text-sm text-gray-600 line-clamp-2 mt-2">{demand.summary}</p>
+              <p className="text-sm text-muted line-clamp-2 mt-2">{demand.summary}</p>
             </div>
-            <div className="mt-4 flex justify-between items-center text-xs text-gray-500 border-t pt-2">
+            <div className="mt-4 flex justify-between items-center text-xs text-muted border-t pt-2">
               <span>Confidence: {(demand.confidence * 100).toFixed(0)}%</span>
               <span>{new Date(demand.createdAt).toLocaleDateString()}</span>
             </div>
           </Card>
         ))}
       </div>
-      {demands.length === 0 && <p className="text-center text-gray-500 mt-8">No normalized demands found.</p>}
+      {demands.length === 0 && <p className="text-center text-muted mt-8">No normalized demands found.</p>}
     </div>
   );
 };

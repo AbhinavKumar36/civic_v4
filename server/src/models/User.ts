@@ -6,7 +6,7 @@ export interface IUser extends Document {
   password?: string;
   name?: string;
   dob?: string;
-  role: 'CITIZEN' | 'AUTHORITY' | 'ADMIN';
+  role: 'CITIZEN' | 'AUTHORITY' | 'ADMIN' | 'WORKER';
   language: string;
   isVerified: boolean;
   identityStatus: 'NOT_VERIFIED' | 'VERIFICATION_PENDING' | 'VERIFIED' | 'VERIFICATION_FAILED';
@@ -23,7 +23,7 @@ const userSchema = new Schema<IUser>({
   dob: { type: String },
   role: { 
     type: String, 
-    enum: ['CITIZEN', 'AUTHORITY', 'ADMIN'], 
+    enum: ['CITIZEN', 'AUTHORITY', 'ADMIN', 'WORKER'], 
     default: 'CITIZEN' 
   },
   language: { type: String, default: 'en' },

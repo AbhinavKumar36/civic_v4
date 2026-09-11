@@ -59,12 +59,12 @@ export const EvidenceContextView: React.FC<EvidenceContextViewProps> = ({ demand
       </div>
 
       <h2 className="text-2xl font-bold">Contextual Evidence</h2>
-      <p className="text-gray-600">Reconciling citizen perception with documented public data.</p>
+      <p className="text-muted">Reconciling citizen perception with documented public data.</p>
 
       {loading ? (
         <p>Loading evidence...</p>
       ) : evidenceRecords.length === 0 ? (
-        <Card className="p-8 text-center text-gray-500">
+        <Card className="p-8 text-center text-muted">
           No contextual evidence generated yet. Click "Generate Contextual Evidence".
         </Card>
       ) : (
@@ -89,12 +89,12 @@ export const EvidenceContextView: React.FC<EvidenceContextViewProps> = ({ demand
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-gray-50 p-3 rounded">
-                    <span className="block text-gray-500 text-sm font-semibold mb-1">Calculated Indicator</span>
+                  <div className="bg-background p-3 rounded">
+                    <span className="block text-muted text-sm font-semibold mb-1">Calculated Indicator</span>
                     {evidence.indicator}
                   </div>
-                  <div className="bg-gray-50 p-3 rounded">
-                    <span className="block text-gray-500 text-sm font-semibold mb-1">Observed Value</span>
+                  <div className="bg-background p-3 rounded">
+                    <span className="block text-muted text-sm font-semibold mb-1">Observed Value</span>
                     <span className="font-mono">{evidence.observedValue}</span>
                   </div>
                 </div>
@@ -102,10 +102,10 @@ export const EvidenceContextView: React.FC<EvidenceContextViewProps> = ({ demand
                 <div className="mb-6">
                   <h4 className="font-semibold text-lg mb-2">AI Interpretation</h4>
                   <p className="font-medium text-gray-800 mb-2">{evidence.relationship}</p>
-                  <p className="text-gray-600">{evidence.explanation}</p>
+                  <p className="text-muted">{evidence.explanation}</p>
                 </div>
 
-                <div className="border-t pt-4 flex flex-wrap gap-4 text-xs text-gray-500">
+                <div className="border-t pt-4 flex flex-wrap gap-4 text-xs text-muted">
                   <span><strong>Source:</strong> {evidence.source}</span>
                   <span><strong>Confidence:</strong> {evidence.confidence}/10</span>
                   <span><strong>Strength:</strong> {evidence.evidenceStrength}/10</span>

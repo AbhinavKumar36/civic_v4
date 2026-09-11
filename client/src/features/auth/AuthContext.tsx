@@ -3,7 +3,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 type User = {
   _id: string;
   phone: string;
-  role: 'CITIZEN' | 'AUTHORITY' | 'ADMIN';
+  email?: string;
+  name?: string;
+  role: 'CITIZEN' | 'AUTHORITY' | 'ADMIN' | 'WORKER';
 };
 
 interface AuthContextType {

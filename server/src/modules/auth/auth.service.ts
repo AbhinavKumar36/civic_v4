@@ -9,8 +9,6 @@ import crypto from 'crypto';
 
 export class AuthService {
   async sendOTP(phone: string): Promise<string> {
-    // Basic rate limit per phone checks could be done here or in middleware
-    
     // Generate 6 digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpHash = await bcrypt.hash(otp, 10);
@@ -23,9 +21,16 @@ export class AuthService {
       expiresAt: new Date(Date.now() + 5 * 60 * 1000), // 5 mins
     });
 
-    // We do NOT log the OTP in production.
+    // In development, log the OTP so it can be used for demo
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`[DEV OTP] Phone: ${phone} → OTP: ${otp}`);
+    }
+
+    // Fire-and-forget SMS — don't block the response
     const message = `Your Civic Pulse verification code is: ${otp}. Valid for 5 minutes.`;
-    await textBeeService.sendSMS(phone, message);
+    textBeeService.sendSMS(phone, message).catch(err => {
+      console.error('[AuthService] SMS delivery failed (non-blocking):', err);
+    });
 
     return requestId;
   }

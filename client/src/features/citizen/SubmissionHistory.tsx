@@ -72,14 +72,14 @@ export const SubmissionHistory: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-6">
       <h2 className="text-2xl font-bold">Your Submission History</h2>
       {inputs.length === 0 ? (
-        <p className="text-gray-500">You haven't submitted any needs yet.</p>
+        <p className="text-muted">You haven't submitted any needs yet.</p>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {inputs.map(input => (
             <Card key={input._id} className="p-4 flex flex-col justify-between h-full">
               <div>
                 <div className="flex justify-between items-start">
-                  <span className="text-xs font-semibold px-2 py-1 bg-gray-100 rounded text-gray-700 uppercase tracking-wide">
+                  <span className="text-xs font-semibold px-2 py-1 bg-gray-100 rounded text-foreground uppercase tracking-wide">
                     {input.inputType}
                   </span>
                   <span className={`text-xs font-bold px-2 py-1 rounded ${
@@ -94,7 +94,7 @@ export const SubmissionHistory: React.FC = () => {
                   {input.text || "No text provided (Media/Location only)"}
                 </p>
               </div>
-              <div className="mt-4 pt-4 border-t flex justify-between items-center text-xs text-gray-500">
+              <div className="mt-4 pt-4 border-t flex justify-between items-center text-xs text-muted">
                 <span>{new Date(input.createdAt).toLocaleDateString()}</span>
                 {input.status === 'FAILED' && (
                   <Button variant="outline" size="sm" onClick={() => handleRetry(input._id)}>
@@ -118,32 +118,32 @@ export const SubmissionHistory: React.FC = () => {
       {/* Result Modal */}
       {isModalOpen && selectedResult && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="max-w-2xl w-full p-6 bg-white dark:bg-gray-800 shadow-xl overflow-y-auto max-h-[90vh]">
+          <Card className="max-w-2xl w-full p-6 bg-surface border-border dark:bg-gray-800 shadow-xl overflow-y-auto max-h-[90vh]">
             <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white">AI Normalized Demand</h3>
-              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">
+              <h3 className="text-xl font-bold text-foreground dark:text-white">AI Normalized Demand</h3>
+              <button onClick={closeModal} className="text-muted hover:text-foreground">
                 ✕
               </button>
             </div>
             
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-semibold text-gray-500 uppercase">Title</h4>
+                <h4 className="text-sm font-semibold text-muted uppercase">Title</h4>
                 <p className="text-lg font-medium">{selectedResult.title}</p>
               </div>
               
               <div>
-                <h4 className="text-sm font-semibold text-gray-500 uppercase">Summary</h4>
-                <p className="text-gray-700 dark:text-gray-300">{selectedResult.summary}</p>
+                <h4 className="text-sm font-semibold text-muted uppercase">Summary</h4>
+                <p className="text-foreground dark:text-gray-300">{selectedResult.summary}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-500 uppercase">Category</h4>
+                  <h4 className="text-sm font-semibold text-muted uppercase">Category</h4>
                   <p className="font-medium">{selectedResult.category}</p>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-500 uppercase">Severity</h4>
+                  <h4 className="text-sm font-semibold text-muted uppercase">Severity</h4>
                   <span className={`px-2 py-1 text-xs font-bold rounded ${
                     selectedResult.severity === 'CRITICAL' ? 'bg-red-100 text-red-800' :
                     selectedResult.severity === 'HIGH' ? 'bg-orange-100 text-orange-800' :
@@ -155,15 +155,15 @@ export const SubmissionHistory: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-sm font-semibold text-gray-500 uppercase">Demand Statement</h4>
-                <p className="text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded border">
+                <h4 className="text-sm font-semibold text-muted uppercase">Demand Statement</h4>
+                <p className="text-foreground dark:text-gray-300 bg-background dark:bg-gray-900 p-3 rounded border">
                   {selectedResult.demandStatement}
                 </p>
               </div>
 
               {selectedResult.entities && selectedResult.entities.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-500 uppercase mb-2">Detected Entities</h4>
+                  <h4 className="text-sm font-semibold text-muted uppercase mb-2">Detected Entities</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedResult.entities.map((ent: string, idx: number) => (
                       <span key={idx} className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-xs">

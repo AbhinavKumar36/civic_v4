@@ -87,23 +87,23 @@ export const ThemesView: React.FC = () => {
               {theme.recurrenceStatus}
             </span>
           </div>
-          <p className="text-gray-700 text-lg mb-6">{theme.summary}</p>
+          <p className="text-foreground text-lg mb-6">{theme.summary}</p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 text-sm">
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="block text-gray-500 font-semibold mb-1">Category</span>
+            <div className="bg-background p-3 rounded">
+              <span className="block text-muted font-semibold mb-1">Category</span>
               {theme.category}
             </div>
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="block text-gray-500 font-semibold mb-1">Total Demands</span>
+            <div className="bg-background p-3 rounded">
+              <span className="block text-muted font-semibold mb-1">Total Demands</span>
               {theme.demandCount}
             </div>
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="block text-gray-500 font-semibold mb-1">Unique Citizens</span>
+            <div className="bg-background p-3 rounded">
+              <span className="block text-muted font-semibold mb-1">Unique Citizens</span>
               {theme.uniqueCitizenCount}
             </div>
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="block text-gray-500 font-semibold mb-1">Coherence</span>
+            <div className="bg-background p-3 rounded">
+              <span className="block text-muted font-semibold mb-1">Coherence</span>
               {(theme.coherenceScore * 100).toFixed(1)}%
             </div>
           </div>
@@ -123,9 +123,9 @@ export const ThemesView: React.FC = () => {
             <h3 className="text-lg font-semibold mb-3">Associated Demands</h3>
             <div className="space-y-3">
               {demands?.map((d: any) => (
-                <div key={d._id} className="p-3 border rounded bg-white text-sm">
+                <div key={d._id} className="p-3 border rounded bg-surface border-border text-sm">
                   <p className="font-semibold text-gray-800 mb-1">{d.title}</p>
-                  <p className="text-gray-600">{d.demandStatement}</p>
+                  <p className="text-muted">{d.demandStatement}</p>
                 </div>
               ))}
             </div>
@@ -145,14 +145,14 @@ export const ThemesView: React.FC = () => {
       </div>
 
       {themes.length === 0 ? (
-        <p className="text-gray-500">No themes generated yet. Run the intelligence pipeline.</p>
+        <p className="text-muted">No themes generated yet. Run the intelligence pipeline.</p>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {themes.map(theme => (
             <Card key={theme._id} className="p-4 flex flex-col justify-between cursor-pointer hover:shadow-md transition-shadow" onClick={() => setSelectedThemeId(theme._id)}>
               <div>
                 <div className="flex justify-between items-start mb-2">
-                  <span className="text-xs font-semibold px-2 py-1 bg-gray-100 rounded text-gray-700 uppercase">
+                  <span className="text-xs font-semibold px-2 py-1 bg-gray-100 rounded text-foreground uppercase">
                     {theme.category}
                   </span>
                   <span className={`text-xs font-bold px-2 py-1 rounded ${
@@ -164,9 +164,9 @@ export const ThemesView: React.FC = () => {
                   </span>
                 </div>
                 <h3 className="font-bold text-lg mb-2">{theme.name}</h3>
-                <p className="text-sm text-gray-600 line-clamp-3">{theme.summary}</p>
+                <p className="text-sm text-muted line-clamp-3">{theme.summary}</p>
               </div>
-              <div className="mt-4 pt-4 border-t flex justify-between items-center text-xs text-gray-500">
+              <div className="mt-4 pt-4 border-t flex justify-between items-center text-xs text-muted">
                 <span>{theme.demandCount} demands</span>
                 <span>{theme.uniqueCitizenCount} citizens</span>
               </div>

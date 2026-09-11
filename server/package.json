@@ -9,6 +9,7 @@
     "seed:dataset": "ts-node src/scripts/seed-bhubaneswar-data.ts",
     "seed:real": "ts-node src/scripts/seed-real-data.ts",
     "seed:proposals": "ts-node src/scripts/seed-proposals.ts",
+    "seed:users": "ts-node src/scripts/seed-demo-users.ts",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"

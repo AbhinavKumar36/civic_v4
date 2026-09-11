@@ -94,6 +94,31 @@ export const loginWithPassword = async (req: Request, res: Response) => {
   }
 };
 
+export const workerLogin = async (req: Request, res: Response) => {
+  try {
+    const { worker_id, password } = req.body;
+    if (!worker_id || !password) {
+      return res.status(400).json({ success: false, error: { message: 'Worker ID and password are required' } });
+    }
+
+    // Find worker by phone field (we store worker_id as phone)
+    const user = await User.findOne({ phone: worker_id, role: 'WORKER' });
+    if (!user) throw new Error('Invalid worker credentials');
+    
+    if (!user.password) throw new Error('Worker account not configured');
+    
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) throw new Error('Invalid worker credentials');
+
+    const payload = { userId: user._id.toString(), role: user.role };
+    const accessToken = generateAccessToken(payload);
+
+    res.json({ success: true, data: { accessToken, user } });
+  } catch (error: any) {
+    res.status(401).json({ success: false, error: { message: error.message || 'Worker login failed' } });
+  }
+};
+
 export const refresh = async (req: Request, res: Response) => {
   try {
     const token = req.cookies?.refreshToken;

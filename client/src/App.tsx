@@ -20,6 +20,8 @@ const ProtectedRoute = ({ children, allowedRoles }: { children: React.ReactNode,
   return <>{children}</>;
 };
 
+import { WorkerShell } from './features/worker/WorkerShell';
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -31,6 +33,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute allowedRoles={['CITIZEN', 'ADMIN']}>
             <CitizenShell />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/worker/*" 
+        element={
+          <ProtectedRoute allowedRoles={['WORKER', 'ADMIN']}>
+            <WorkerShell />
           </ProtectedRoute>
         } 
       />

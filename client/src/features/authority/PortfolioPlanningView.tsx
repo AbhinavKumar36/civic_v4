@@ -49,8 +49,8 @@ export const PortfolioPlanningView: React.FC<PortfolioPlanningViewProps> = ({ on
     <div className="space-y-6 max-w-4xl mx-auto">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Portfolio Optimization</h1>
-          <p className="text-gray-500 mt-1">Constraint-aware capital allocation engine</p>
+          <h1 className="text-3xl font-bold text-foreground">Portfolio Optimization</h1>
+          <p className="text-muted mt-1">Constraint-aware capital allocation engine</p>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export const PortfolioPlanningView: React.FC<PortfolioPlanningViewProps> = ({ on
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Maximum Budget Limit (INR)
             </label>
             <input
@@ -70,20 +70,20 @@ export const PortfolioPlanningView: React.FC<PortfolioPlanningViewProps> = ({ on
               className="w-full p-2 border rounded-md"
               step="100000"
             />
-            <p className="text-xs text-gray-500 mt-1">Current: ₹{(maxBudget / 100000).toFixed(2)} Lakhs</p>
+            <p className="text-xs text-muted mt-1">Current: ₹{(maxBudget / 100000).toFixed(2)} Lakhs</p>
           </div>
           
           <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-1">Default Category Limits (Hardcoded for Demo)</h3>
-            <ul className="text-sm text-gray-600 list-disc list-inside">
+            <h3 className="text-sm font-medium text-foreground mb-1">Default Category Limits (Hardcoded for Demo)</h3>
+            <ul className="text-sm text-muted list-disc list-inside">
               <li>ROADS: Max 2 projects</li>
               <li>HEALTHCARE: Max 3 projects</li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-1">Geographic Constraints</h3>
-            <ul className="text-sm text-gray-600 list-disc list-inside">
+            <h3 className="text-sm font-medium text-foreground mb-1">Geographic Constraints</h3>
+            <ul className="text-sm text-muted list-disc list-inside">
               <li>Minimum Wards Covered: 2</li>
             </ul>
           </div>

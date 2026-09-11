@@ -16,14 +16,14 @@ export const CitizenShell: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <header className="bg-white dark:bg-gray-800 shadow-sm">
+    <div className="min-h-screen bg-background dark:bg-gray-900">
+      <header className="bg-surface border-border dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="font-bold text-xl text-primary">Civic Pulse - Citizen</div>
           <nav className="space-x-4 flex items-center">
-            <Link to="/citizen" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">Dashboard</Link>
-            <Link to="/citizen/submit" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">Submit Need</Link>
-            <Link to="/citizen/history" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">History</Link>
+            <Link to="/citizen" className="text-muted hover:text-foreground dark:text-gray-300">Dashboard</Link>
+            <Link to="/citizen/submit" className="text-muted hover:text-foreground dark:text-gray-300">Submit Need</Link>
+            <Link to="/citizen/history" className="text-muted hover:text-foreground dark:text-gray-300">History</Link>
             <Button variant="outline" size="sm" onClick={handleLogout}>Logout</Button>
           </nav>
         </div>

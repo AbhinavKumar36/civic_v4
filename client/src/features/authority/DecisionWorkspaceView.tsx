@@ -102,11 +102,11 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Decision Workspace</h1>
-          <p className="text-gray-500 mt-1">Review AI Portfolio and apply Human Overrides</p>
+          <h1 className="text-3xl font-bold text-foreground">Decision Workspace</h1>
+          <p className="text-muted mt-1">Review AI Portfolio and apply Human Overrides</p>
         </div>
         <div className="text-right">
-          <p className="text-sm text-gray-500">Budget Constraint</p>
+          <p className="text-sm text-muted">Budget Constraint</p>
           <p className={`text-xl font-bold ${isOverBudget ? 'text-red-600' : 'text-green-600'}`}>
             ₹{(currentCost / 100000).toFixed(2)}L / ₹{(maxBudget / 100000).toFixed(2)}L
           </p>
@@ -124,10 +124,10 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
               if (isOverridden) return null;
               
               return (
-                <div key={p._id} className="p-3 bg-white border rounded shadow-sm flex justify-between items-center">
+                <div key={p._id} className="p-3 bg-surface border-border border rounded shadow-sm flex justify-between items-center">
                   <div>
                     <h4 className="font-semibold text-gray-800">{p.title}</h4>
-                    <p className="text-xs text-gray-500">Score: {p.priorityScore} | ₹{(p.estimatedCost/100000).toFixed(2)}L</p>
+                    <p className="text-xs text-muted">Score: {p.priorityScore} | ₹{(p.estimatedCost/100000).toFixed(2)}L</p>
                   </div>
                   <Button variant="outline" size="sm" className="text-red-600 border-red-200" onClick={() => handleOverride(p, 'REMOVED')}>
                     Remove
@@ -160,7 +160,7 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
               if (isOverridden) return null;
 
               return (
-                <div key={p._id} className="p-3 bg-white border rounded shadow-sm flex justify-between items-start">
+                <div key={p._id} className="p-3 bg-surface border-border border rounded shadow-sm flex justify-between items-start">
                   <div>
                     <h4 className="font-semibold text-gray-800">{p.title}</h4>
                     <p className="text-xs text-red-500 mt-1">{ep.reason}</p>
@@ -177,11 +177,11 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
 
       {selectedForOverride && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+          <div className="bg-surface border-border p-6 rounded-lg shadow-lg w-full max-w-md">
             <h3 className="text-lg font-bold mb-4">
               Human Override Justification
             </h3>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-muted mb-4">
               You are {selectedForOverride.action === 'ADDED' ? 'adding a proposal that violates constraints' : 'removing an AI-selected proposal'}.
               This action requires a justification for the audit trail.
             </p>
@@ -207,9 +207,9 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
           <CardContent className="pt-3">
             <ul className="space-y-2">
               {overrides.map((o, idx) => (
-                <li key={idx} className="text-sm bg-white p-2 border rounded">
+                <li key={idx} className="text-sm bg-surface border-border p-2 border rounded">
                   <span className="font-bold">{o.action}</span> - {o._proposalTitle} 
-                  <p className="text-gray-500 italic mt-1">Reason: {o.justification}</p>
+                  <p className="text-muted italic mt-1">Reason: {o.justification}</p>
                 </li>
               ))}
             </ul>

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sendOTP, verifyOTP, refresh, logout, me, signup, loginWithPassword } from '../modules/auth/auth.controller';
+import { sendOTP, verifyOTP, refresh, logout, me, signup, loginWithPassword, workerLogin } from '../modules/auth/auth.controller';
 import { authenticate } from '../middleware/auth.middleware';
 import rateLimit from 'express-rate-limit';
 
@@ -15,6 +15,7 @@ router.post('/send-otp', otpLimiter, sendOTP);
 router.post('/verify-otp', otpLimiter, verifyOTP);
 router.post('/signup', signup);
 router.post('/login', loginWithPassword);
+router.post('/worker-login', workerLogin);
 router.post('/refresh', refresh);
 router.post('/logout', authenticate, logout);
 router.get('/me', authenticate, me);

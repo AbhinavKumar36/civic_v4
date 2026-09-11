@@ -58,36 +58,36 @@ export const DemandDetail: React.FC<DemandDetailProps> = ({ demandId, onBack }) 
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold">{demand.title}</h2>
-          <p className="text-sm text-gray-500 uppercase tracking-widest">{demand.category} • {demand.subCategory}</p>
+          <p className="text-sm text-muted uppercase tracking-widest">{demand.category} • {demand.subCategory}</p>
         </div>
         <div className="text-right">
-          <div className="text-sm font-bold text-gray-700">AI Confidence</div>
+          <div className="text-sm font-bold text-foreground">AI Confidence</div>
           <div className="text-xl text-primary">{(demand.confidence * 100).toFixed(0)}%</div>
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Citizen Raw Input side */}
-        <Card className="p-6 bg-gray-50">
+        <Card className="p-6 bg-background">
           <h3 className="font-bold text-gray-800 border-b pb-2 mb-4">CITIZEN-PROVIDED INFORMATION</h3>
           <div className="space-y-4">
             <div>
-              <div className="text-xs text-gray-500 uppercase">Input Type</div>
+              <div className="text-xs text-muted uppercase">Input Type</div>
               <div className="font-medium">{civicInput.inputType}</div>
             </div>
             <div>
-              <div className="text-xs text-gray-500 uppercase">Original Language</div>
+              <div className="text-xs text-muted uppercase">Original Language</div>
               <div className="font-medium">{civicInput.originalLanguage}</div>
             </div>
             {civicInput.text && (
               <div>
-                <div className="text-xs text-gray-500 uppercase">Raw Text / Transcript</div>
-                <div className="p-3 bg-white border rounded text-sm italic mt-1">{civicInput.text}</div>
+                <div className="text-xs text-muted uppercase">Raw Text / Transcript</div>
+                <div className="p-3 bg-surface border-border border rounded text-sm italic mt-1">{civicInput.text}</div>
               </div>
             )}
             {civicInput.media && civicInput.media.length > 0 && (
               <div>
-                <div className="text-xs text-gray-500 uppercase mb-2">Attached Media</div>
+                <div className="text-xs text-muted uppercase mb-2">Attached Media</div>
                 <div className="flex gap-2 flex-wrap">
                   {civicInput.media.map((url: string, i: number) => (
                     <img key={i} src={`http://localhost:4000${url}`} alt="Citizen upload" className="w-32 h-32 object-cover rounded border" />
@@ -97,7 +97,7 @@ export const DemandDetail: React.FC<DemandDetailProps> = ({ demandId, onBack }) 
             )}
             {civicInput.location && (
               <div>
-                <div className="text-xs text-gray-500 uppercase">Location Provided</div>
+                <div className="text-xs text-muted uppercase">Location Provided</div>
                 <div className="font-mono text-sm">
                   Lng: {civicInput.location.coordinates[0]}, Lat: {civicInput.location.coordinates[1]}
                 </div>
