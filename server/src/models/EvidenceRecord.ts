@@ -3,7 +3,7 @@ import { Schema, model, Document, Types } from 'mongoose';
 export interface IEvidenceRecord extends Document {
   demandId?: Types.ObjectId;
   hotspotId?: Types.ObjectId;
-  datasetId: Types.ObjectId;
+  datasetId?: Types.ObjectId;
   dataRecordIds: Types.ObjectId[];
   evidenceType: 'SUPPORTING' | 'CONTRADICTING' | 'NEUTRAL' | 'INSUFFICIENT_DATA';
   indicator: string;
@@ -24,7 +24,7 @@ export interface IEvidenceRecord extends Document {
 const evidenceRecordSchema = new Schema<IEvidenceRecord>({
   demandId: { type: Schema.Types.ObjectId, ref: 'NormalizedDemand', index: true },
   hotspotId: { type: Schema.Types.ObjectId, ref: 'DemandHotspot', index: true },
-  datasetId: { type: Schema.Types.ObjectId, ref: 'Dataset', required: true },
+  datasetId: { type: Schema.Types.ObjectId, ref: 'Dataset' },
   dataRecordIds: [{ type: Schema.Types.ObjectId, ref: 'DataRecord' }],
   evidenceType: { 
     type: String, 

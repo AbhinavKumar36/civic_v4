@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { authenticate } from '../middleware/auth.middleware';
+import { authenticate, authorize } from '../middleware/auth.middleware';
 import { DevelopmentProposal } from '../models/DevelopmentProposal';
 import { DevelopmentPortfolio, IPortfolioConstraint } from '../models/DevelopmentPortfolio';
 import { DecisionRecord } from '../models/DecisionRecord';
@@ -7,7 +7,7 @@ import { PortfolioEngineService } from '../services/intelligence/PortfolioEngine
 
 const router = Router();
 
-router.use(authenticate);
+router.use(authenticate, authorize('AUTHORITY', 'ADMIN'));
 
 /**
  * POST /api/v1/portfolios/optimize

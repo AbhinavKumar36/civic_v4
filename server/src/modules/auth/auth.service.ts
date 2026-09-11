@@ -31,8 +31,9 @@ export class AuthService {
   }
 
   async verifyOTP(phone: string, otp: string): Promise<{ accessToken: string, refreshToken: string, user: IUser }> {
-    // DEMO BYPASS: Allow '123456' as a universal bypass for demo purposes
-    if (otp !== '123456') {
+    // Only allow bypass in development
+    const isDevBypass = process.env.NODE_ENV !== 'production' && otp === '123456';
+    if (!isDevBypass) {
       const otpReq = await OTPRequest.findOne({
         phone,
         verified: false,
@@ -92,6 +93,72 @@ export class AuthService {
       userId: user._id,
       refreshTokenHash,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+    });
+
+    return { accessToken, refreshToken, user };
+  }
+
+  async signup(data: any): Promise<{ accessToken: string, refreshToken: string, user: IUser }> {
+    const { phone, email, password, name, dob, role } = data;
+    
+    // Check if user already exists
+    const existing = await User.findOne({ $or: [{ phone }, { email }] });
+    if (existing) {
+      throw new Error('User with this phone or email already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const userRole = role || 'CITIZEN';
+
+    const user = await User.create({
+      phone,
+      email,
+      password: hashedPassword,
+      name,
+      dob,
+      role: userRole,
+      isVerified: false,
+      identityStatus: 'NOT_VERIFIED'
+    });
+
+    await AuditLog.create({
+      action: 'USER_REGISTERED',
+      entityType: 'User',
+      entityId: user._id.toString(),
+    });
+
+    const payload = { userId: user._id.toString(), role: user.role };
+    const accessToken = generateAccessToken(payload);
+    const refreshToken = generateRefreshToken(payload);
+    const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+
+    await Session.create({
+      userId: user._id,
+      refreshTokenHash,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    });
+
+    return { accessToken, refreshToken, user };
+  }
+
+  async login(email: string, password: string):Promise<{ accessToken: string, refreshToken: string, user: IUser }> {
+    const user = await User.findOne({ email });
+    if (!user) throw new Error('Invalid credentials');
+    
+    if (!user.password) throw new Error('Account does not have a password set');
+    
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) throw new Error('Invalid credentials');
+
+    const payload = { userId: user._id.toString(), role: user.role };
+    const accessToken = generateAccessToken(payload);
+    const refreshToken = generateRefreshToken(payload);
+    const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
+
+    await Session.create({
+      userId: user._id,
+      refreshTokenHash,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     });
 
     return { accessToken, refreshToken, user };

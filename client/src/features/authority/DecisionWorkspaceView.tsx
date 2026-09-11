@@ -47,7 +47,8 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
       proposalId: selectedForOverride.proposal._id,
       action: selectedForOverride.action,
       justification,
-      _proposalTitle: selectedForOverride.proposal.title // for display only
+      _proposalTitle: selectedForOverride.proposal.title, // for display only
+      _proposalCost: selectedForOverride.proposal.estimatedCost || 0
     }]);
 
     setSelectedForOverride(null);
@@ -88,7 +89,12 @@ export const DecisionWorkspaceView: React.FC<DecisionWorkspaceViewProps> = ({ po
 
   if (loading || !portfolio) return <div>Loading Workspace...</div>;
 
-  const currentCost = portfolio.metrics.totalCost;
+  let currentCost = portfolio.metrics.totalCost;
+  overrides.forEach(o => {
+    if (o.action === 'ADDED') currentCost += o._proposalCost;
+    if (o.action === 'REMOVED') currentCost -= o._proposalCost;
+  });
+
   const maxBudget = portfolio.constraints.maxBudget;
   const isOverBudget = currentCost > maxBudget;
 

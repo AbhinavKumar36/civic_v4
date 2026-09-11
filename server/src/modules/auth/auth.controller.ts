@@ -15,6 +15,20 @@ const verifyOtpSchema = z.object({
   otp: z.string().length(6, 'OTP must be 6 digits')
 });
 
+const signupSchema = z.object({
+  phone: z.string().min(10, 'Invalid phone number'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  dob: z.string().optional(),
+  role: z.enum(['CITIZEN', 'AUTHORITY', 'ADMIN']).optional()
+});
+
+const loginSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string()
+});
+
 export const sendOTP = async (req: Request, res: Response) => {
   try {
     const { phone } = sendOtpSchema.parse(req.body);
@@ -41,6 +55,42 @@ export const verifyOTP = async (req: Request, res: Response) => {
     res.json({ success: true, data: { accessToken, user } });
   } catch (error: any) {
     res.status(401).json({ success: false, error: { message: error.message || 'Verification failed' } });
+  }
+};
+
+export const signup = async (req: Request, res: Response) => {
+  try {
+    const data = signupSchema.parse(req.body);
+    const { accessToken, refreshToken, user } = await authService.signup(data);
+    
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.status(201).json({ success: true, data: { accessToken, user } });
+  } catch (error: any) {
+    res.status(400).json({ success: false, error: { message: error.message || 'Signup failed' } });
+  }
+};
+
+export const loginWithPassword = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = loginSchema.parse(req.body);
+    const { accessToken, refreshToken, user } = await authService.login(email, password);
+    
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.json({ success: true, data: { accessToken, user } });
+  } catch (error: any) {
+    res.status(401).json({ success: false, error: { message: error.message || 'Login failed' } });
   }
 };
 

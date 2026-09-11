@@ -22,9 +22,8 @@ export class EvidenceService {
 
     if (nearbyRecords.length === 0) {
       // Create an insufficient data record
-      return await EvidenceRecord.create({
+      const insufficientRecord = new EvidenceRecord({
         demandId: demand._id,
-        datasetId: new Types.ObjectId(), // Mock ID since there's no dataset
         dataRecordIds: [],
         evidenceType: 'INSUFFICIENT_DATA',
         indicator: 'Data Availability',
@@ -35,6 +34,8 @@ export class EvidenceService {
         source: 'System',
         explanation: 'No public datasets have been imported for this geographic area to verify or provide context to the citizen report.'
       });
+      await insufficientRecord.save();
+      return [insufficientRecord];
     }
 
     // Group records by Dataset to generate specific evidence per dataset

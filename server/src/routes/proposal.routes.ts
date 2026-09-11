@@ -9,7 +9,7 @@ import { authenticate, authorize } from '../middleware/auth.middleware';
 const router = Router();
 
 // Apply authentication to all proposal routes
-router.use(authenticate);
+router.use(authenticate, authorize('AUTHORITY', 'ADMIN'));
 
 /**
  * POST /api/v1/proposals

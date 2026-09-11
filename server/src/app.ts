@@ -12,6 +12,7 @@ import evidenceRoutes from './routes/evidence.routes';
 import proposalRoutes from './routes/proposal.routes';
 import priorityRoutes from './routes/priority.routes';
 import portfolioRoutes from './routes/portfolio.routes';
+import aadhaarRoutes from './routes/aadhaar.routes';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use('/api/v1/evidence', evidenceRoutes);
 app.use('/api/v1/proposals', proposalRoutes);
 app.use('/api/v1/priorities', priorityRoutes);
 app.use('/api/v1/portfolios', portfolioRoutes);
+app.use('/api/v1/aadhaar', aadhaarRoutes);
 
 app.get('/api/v1/health', (req, res) => {
   res.status(200).json({ success: true, data: { status: 'OK', timestamp: new Date() } });

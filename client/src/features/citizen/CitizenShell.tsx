@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { useAuth } from '../auth/AuthContext';
 import { SubmitNeed } from './SubmitNeed';
 import { SubmissionHistory } from './SubmissionHistory';
+import { ProfileDashboard } from './ProfileDashboard';
 
 export const CitizenShell: React.FC = () => {
   const { logout } = useAuth();
@@ -20,7 +21,8 @@ export const CitizenShell: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="font-bold text-xl text-primary">Civic Pulse - Citizen</div>
           <nav className="space-x-4 flex items-center">
-            <Link to="/citizen" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">Submit Need</Link>
+            <Link to="/citizen" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">Dashboard</Link>
+            <Link to="/citizen/submit" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">Submit Need</Link>
             <Link to="/citizen/history" className="text-gray-600 hover:text-gray-900 dark:text-gray-300">History</Link>
             <Button variant="outline" size="sm" onClick={handleLogout}>Logout</Button>
           </nav>
@@ -28,7 +30,8 @@ export const CitizenShell: React.FC = () => {
       </header>
       <main className="max-w-7xl mx-auto px-4 py-8">
         <Routes>
-          <Route path="/" element={<SubmitNeed />} />
+          <Route path="/" element={<ProfileDashboard />} />
+          <Route path="/submit" element={<SubmitNeed />} />
           <Route path="/history" element={<SubmissionHistory />} />
         </Routes>
       </main>

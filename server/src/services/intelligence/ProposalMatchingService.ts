@@ -53,22 +53,35 @@ export class ProposalMatchingService {
 
     let demands: INormalizedDemand[] = [];
     try {
-      demands = await NormalizedDemand.find(demandQuery).limit(50);
+      demands = await NormalizedDemand.find(demandQuery)
+        .populate('civicInputId')
+        .limit(50);
     } catch (err) {
       // Fallback without $near if index or query fails
-      demands = await NormalizedDemand.find({ category }).limit(50);
+      demands = await NormalizedDemand.find({ category })
+        .populate('civicInputId')
+        .limit(50);
     }
 
     // If still 0 demands found, look for all demands in the same category across the city
     if (demands.length === 0) {
-      demands = await NormalizedDemand.find({ category }).limit(20);
+      demands = await NormalizedDemand.find({ category })
+        .populate('civicInputId')
+        .limit(20);
     }
 
     // 2. Extract unique citizens and submissions
     const citizenIdSet = new Set<string>();
     for (const d of demands) {
       if (d.civicInputId) {
-        citizenIdSet.add(d.civicInputId.toString());
+        // Since we populated civicInputId, it is now an object containing citizenId
+        const inputObj = d.civicInputId as any;
+        if (inputObj.citizenId) {
+          citizenIdSet.add(inputObj.citizenId.toString());
+        } else {
+          // Fallback if not populated correctly for some reason
+          citizenIdSet.add(d.civicInputId.toString());
+        }
       }
     }
     const totalSubmissionsCount = demands.length;

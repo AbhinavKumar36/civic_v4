@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '../../components/ui/Card';
-import { MapContainer, TileLayer, Circle, Popup } from 'react-leaflet';
+import { DashboardMap } from '../map/DashboardMap';
 import 'leaflet/dist/leaflet.css';
 
 export const HotspotsView: React.FC = () => {
@@ -60,10 +60,7 @@ export const HotspotsView: React.FC = () => {
 
   if (loading) return <div>Loading hotspots...</div>;
 
-  const defaultCenter: [number, number] = [20.296, 85.824]; // Default to Bhubaneswar for demo
-  const mapCenter = hotspots.length > 0 
-    ? [hotspots[0].center.coordinates[1], hotspots[0].center.coordinates[0]] as [number, number]
-    : defaultCenter;
+
 
   return (
     <div className="space-y-6">
@@ -72,64 +69,16 @@ export const HotspotsView: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3 bg-white p-2 rounded-lg shadow h-[600px] z-0 relative">
-          <MapContainer center={mapCenter} zoom={12} style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}>
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; OpenStreetMap contributors'
-            />
-            
-            {/* Render Hotspots */}
-            {hotspots.map((h, i) => {
-              const [lng, lat] = h.center.coordinates;
-              return (
-                <Circle 
-                  key={`hotspot-${i}`} 
-                  center={[lat, lng]} 
-                  radius={h.radius}
-                  pathOptions={{ color: 'red', fillColor: 'red', fillOpacity: 0.4 }}
-                >
-                  <Popup>
-                    <div className="font-sans">
-                      <h4 className="font-bold text-sm mb-1">{h.themeId?.name || 'Unknown Theme'}</h4>
-                      <p className="text-xs text-gray-600 mb-2">{h.demandCount} demands • {h.uniqueCitizenCount} citizens</p>
-                      <p className="text-xs"><strong>Intensity:</strong> {h.intensity.toFixed(2)}</p>
-                    </div>
-                  </Popup>
-                </Circle>
-              );
-            })}
-
-            {/* Render Active Contextual Datasets */}
-            {Object.entries(activeLayers).map(([datasetId, isActive]) => {
-              if (!isActive || !layerData[datasetId]) return null;
-              
-              const ds = datasets.find(d => d._id === datasetId);
-              const color = ds?.category === 'EDUCATION' ? 'blue' : 'green';
-
-              return layerData[datasetId].map((record: any, i: number) => {
-                const [lng, lat] = record.location.coordinates;
-                return (
-                  <Circle 
-                    key={`record-${datasetId}-${i}`}
-                    center={[lat, lng]}
-                    radius={30}
-                    pathOptions={{ color, fillColor: color, fillOpacity: 0.8 }}
-                  >
-                    <Popup>
-                      <div className="font-sans">
-                        <h4 className="font-bold text-sm mb-1">{record.name}</h4>
-                        <p className="text-xs text-gray-500 mb-2">{ds?.name}</p>
-                        {Object.entries(record.attributes).map(([k, v]: any) => (
-                          <div key={k} className="text-xs"><strong>{k}:</strong> {v}</div>
-                        ))}
-                      </div>
-                    </Popup>
-                  </Circle>
-                );
-              });
-            })}
-
-          </MapContainer>
+          <DashboardMap 
+            hotspots={hotspots.map(h => ({
+              cluster_id: h._id,
+              category_archetype: h.themeId?.category || 'General',
+              sub_category_archetype: h.themeId?.name || 'Unknown',
+              centroid: { lat: h.center.coordinates[1], lng: h.center.coordinates[0] },
+              priority_score: h.intensity * 10, // approximate mapping
+              assigned_to: null
+            })) as any}
+          />
         </div>
 
         <div className="space-y-4 max-h-[600px] overflow-y-auto">

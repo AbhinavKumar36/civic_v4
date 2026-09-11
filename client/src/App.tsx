@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider, useAuth } from './features/auth/AuthContext';
-import { Landing } from './app/Landing';
+import { LandingPage } from './features/landing/LandingPage';
 import { Login } from './features/auth/Login';
 import { VerifyOTP } from './features/auth/VerifyOTP';
 import { CitizenShell } from './features/citizen/CitizenShell';
@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children, allowedRoles }: { children: React.ReactNode,
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/verify-otp" element={<VerifyOTP />} />
       <Route 

@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
 import { PriorityAssessment } from '../models/PriorityAssessment';
-import { authenticate } from '../middleware/auth.middleware';
+import { authenticate, authorize } from '../middleware/auth.middleware';
 
 const router = Router();
 
-router.use(authenticate);
+router.use(authenticate, authorize('AUTHORITY', 'ADMIN'));
 
 /**
  * GET /api/v1/priorities

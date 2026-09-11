@@ -5,8 +5,10 @@ import { authenticate, authorize } from '../middleware/auth.middleware';
 
 const router = Router();
 
+router.use(authenticate, authorize('AUTHORITY', 'ADMIN'));
+
 // Authority / Admin only
-router.post('/demand/:id/generate', authenticate, authorize('AUTHORITY', 'ADMIN'), async (req: Request, res: Response) => {
+router.post('/demand/:id/generate', async (req: Request, res: Response) => {
   try {
     const id = req.params.id as string;
     const evidence = await evidenceService.generateEvidenceForDemand(id);
